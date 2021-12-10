@@ -35,4 +35,12 @@ jobs:
         with:
           # Paste output of `az ad sp create-for-rbac` as value of secret variable: AZURE_CREDENTIALS
           creds: ${{ secrets.PROD_AZURE_CREDENTIALS }}
+
+      - name: Azure CLI Action
+        uses: Azure/cli@v1
+        with:
+          # Specify the script here
+          inlineScript: | 
+            az account set --subscription $PRODUCTION_SUBSCRIPTION_ID
+            az deployment group create --resource-group $PRODuCTION_RESOURCE_GROUP --template-file .\template.bicep --mode Incremental
           
