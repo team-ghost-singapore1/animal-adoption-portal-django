@@ -16,7 +16,8 @@ on:
 env:
   PRODuCTION_RESOURCE_GROUP: rg-OSS-2021-12-09-team-01-prod
   PRODUCTION_SUBSCRIPTION_ID: cfe96ac1-4cd0-40ad-9751-b18802bf8822
-  PRODUCTION_WEB_APP_NAME: ghost1-webappprd
+  PRODUCTION_APPSERVICEPLAN: ghost3mattPLAN  
+  PRODUCTION_WEBAPPNAME: ghost3matt
   
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -47,5 +48,5 @@ jobs:
           # Specify the script here
           inlineScript: | 
             az account set --subscription $PRODUCTION_SUBSCRIPTION_ID
-            az deployment group create --resource-group $PRODuCTION_RESOURCE_GROUP --template-file template.bicep --mode Incremental
-          
+            az deployment group create --resource-group $PRODuCTION_RESOURCE_GROUP --template-file template.bicep --mode Incremental --parameters webAppName=$PRODUCTION_WEBAPPNAME appServicePlanName=$PRODUCTION_APPSERVICEPLAN
+        
